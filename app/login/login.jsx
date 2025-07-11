@@ -3,71 +3,48 @@
 import { useEffect, useState } from "react";
 import {
     Text,
-    TouchableOpacity,
     View,
     Image,
-    Alert,
     ActivityIndicator,
     StyleSheet,
 } from "react-native";
-import { useAuthRequest, Google } from "expo-auth-session/providers/google";
-import { makeRedirectUri, ResponseType } from "expo-auth-session";
-import * as WebBrowser from "expo-web-browser";
-import { GoogleAuthProvider, signInWithCredential } from "firebase/auth";
-import { auth } from "@/lib/firebase";
-
+import {
+    GoogleOneTapSignIn,
+    GoogleLogoButton,
+} from "@react-native-google-signin/google-signin";
 
 import { TAGS, FORMS, TEXTS } from "@/lib/utils/theme";
 import { COLORS, FONT_SIZES, STYLES } from "@/lib/utils/enums";
 
-WebBrowser.maybeCompleteAuthSession();
-
 export default function LoginPage() {
-    const [pressed, setPressed] = useState(false);
-    const [loading, setLoading] = useState(false);
-
-    const [request, response, promptAsync] = useAuthRequest({
-        clientId: "729894555819-tg42iiean55k86lccslp9nkp9ckensdf.apps.googleusercontent.com",
-        expoClientId: "729894555819-tg42iiean55k86lccslp9nkp9ckensdf.apps.googleusercontent.com",
-        responseType: ResponseType.Token,
-        scopes: ["profile", "email"],
-        redirectUri: makeRedirectUri({
-            useProxy: true,
-        }),
-    });
-
-    console.log(makeRedirectUri({
-        useProxy: true,}));
     useEffect(() => {
-        const authenticate = async () => {
-        if (response?.type === "success" && response.authentication?.accessToken) {
-            try {
-                setLoading(true);
-                const credential = GoogleAuthProvider.credential(null, response.authentication.accessToken);
-                const userCredential = await signInWithCredential(auth, credential);
-                const { email, displayName, uid } = userCredential.user;
-                console.log("✅ Login Success:", { email, displayName, uid });
-            } catch (err) {
-                console.error("❌ Firebase Auth Error:", err.message);
-                Alert.alert("Login Failed", err.message);
-            } finally {
-            setLoading(false);
+        // Ideally move this to your app root
+        GoogleOneTapSignIn.configure();
+    }, []);
+
+    const startSignInFlow = async () => {
+        try {
+            await GoogleOneTapSignIn.checkPlayServices();
+            const signInResponse = await GoogleOneTapSignIn.signIn();
+            if (signInResponse.type === 'success') {
+                // use signInResponse.data
+                console.log("Google Sign-In Success", signInResponse.data);
+            } else if (signInResponse.type === 'noSavedCredentialFound') {
+                const createResponse = await GoogleOneTapSignIn.createAccount();
+                if (createResponse.type === 'success') {
+                    console.log("Account Created", createResponse.data);
+                } else if (createResponse.type === 'noSavedCredentialFound') {
+                    const explicitResponse = await GoogleOneTapSignIn.presentExplicitSignIn();
+                    if (explicitResponse.type === 'success') {
+                        console.log("Explicit Sign-In Success", explicitResponse.data);
+                    }
+                }
             }
+        } catch (error) {
+            console.error("Google Sign-In Error", error);
         }
-        };
-
-        authenticate();
-    }, [response]);
-
-    const handleLogin = () => {
-        setPressed(true);
-        promptAsync().catch((error) => {
-        console.error("❌ Auth Prompt Error:", error.message);
-        Alert.alert("Login Error", error.message);
-        setPressed(false);
-        });
     };
-    
+
     return (
         <View style={[TAGS.body, styles.body]}>
             <View style={[TAGS.form, styles.container]}>
@@ -76,12 +53,11 @@ export default function LoginPage() {
                 <Image source={require("../../assets/logo.png")} style={styles.logo} />
 
                 <TouchableOpacity
-                    disabled={!request || pressed}
-                    onPress={handleLogin}
+                    onPress={startSignInFlow}
                     style={[
                         TAGS.button,
                         FORMS.submit,
-                        { backgroundColor: !pressed ? COLORS.primary : COLORS.disabled },
+                        { backgroundColor: COLORS.primary },
                     ]}
                 >
                     <Text style={[TEXTS.button, styles.button]}>{"Login"}</Text>

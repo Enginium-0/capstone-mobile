@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "729894555819",
+    "firebase_url": "https://enginiumfacilitease-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "enginiumfacilitease",
+    "storage_bucket": "enginiumfacilitease.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729894555819:android:682302021f72a577d1a7ee",
+        "android_client_info": {
+          "package_name": "com.enginium.facilitease"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "729894555819-tg42iiean55k86lccslp9nkp9ckensdf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg3A3DeiNstKJPAZTVBMk-haf_qDWG2I4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "729894555819-tg42iiean55k86lccslp9nkp9ckensdf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
