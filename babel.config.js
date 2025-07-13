@@ -12,7 +12,6 @@ module.exports = function (api) {
           },
         },
       ],
-      'expo-router/babel', // Make sure expo-router is included too
     ],
   };
 };

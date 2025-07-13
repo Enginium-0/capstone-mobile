@@ -29,9 +29,9 @@
       "package": "com.enginium.facilitease"
     },
     "web": {
-        "bundler": "metro",
-        "output": "server",
-        "favicon": "./assets/emblem.png"
+      "bundler": "metro",
+      "output": "server",
+      "favicon": "./assets/emblem.png"
     },
     "plugins": [
       "expo-router",
@@ -40,7 +40,13 @@
       "@react-native-google-signin/google-signin"
     ],
     "extra": {
-      "originalFullName": "@enginium_0/facilitease-mobile"
+      "originalFullName": "@enginium_0/facilitease-mobile",
+      "GOOGLE_CLIENT_ID": "729894555819-r42719fgh6b4na8abg432ga2d9m914v1.apps.googleusercontent.com",
+      
+      "router": {},
+      "eas": {
+        "projectId": "8c8e13af-17cc-4b8c-ae4f-3542732e0d98"
+      }
     }
   }
 }

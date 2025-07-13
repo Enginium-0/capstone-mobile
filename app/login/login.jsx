@@ -7,34 +7,45 @@ import {
     Image,
     ActivityIndicator,
     StyleSheet,
+    TouchableOpacity
 } from "react-native";
 import {
-    GoogleOneTapSignIn,
+    GoogleSignin,
     GoogleLogoButton,
 } from "@react-native-google-signin/google-signin";
+import Constants from "expo-constants";
 
 import { TAGS, FORMS, TEXTS } from "@/lib/utils/theme";
 import { COLORS, FONT_SIZES, STYLES } from "@/lib/utils/enums";
 
+
+
+
 export default function LoginPage() {
     useEffect(() => {
         // Ideally move this to your app root
-        GoogleOneTapSignIn.configure();
+        // GoogleSignin.configure();
     }, []);
+
 
     const startSignInFlow = async () => {
         try {
-            await GoogleOneTapSignIn.checkPlayServices();
-            const signInResponse = await GoogleOneTapSignIn.signIn();
+            GoogleSignin.configure({
+                webClientId: Constants.expoConfig.extra.GOOGLE_CLIENT_ID,
+                offlineAccess: true, // Optional, only if you need a refresh token
+            });
+
+            await GoogleSignin.hasPlayServices();
+            const signInResponse = await GoogleSignin.signIn();
             if (signInResponse.type === 'success') {
                 // use signInResponse.data
                 console.log("Google Sign-In Success", signInResponse.data);
             } else if (signInResponse.type === 'noSavedCredentialFound') {
-                const createResponse = await GoogleOneTapSignIn.createAccount();
+                const createResponse = await GoogleSignin.createAccount();
                 if (createResponse.type === 'success') {
                     console.log("Account Created", createResponse.data);
                 } else if (createResponse.type === 'noSavedCredentialFound') {
-                    const explicitResponse = await GoogleOneTapSignIn.presentExplicitSignIn();
+                    const explicitResponse = await GoogleSignin.presentExplicitSignIn();
                     if (explicitResponse.type === 'success') {
                         console.log("Explicit Sign-In Success", explicitResponse.data);
                     }

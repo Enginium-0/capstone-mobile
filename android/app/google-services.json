@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "729894555819-r42719fgh6b4na8abg432ga2d9m914v1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.enginium.facilitease",
+            "certificate_hash": "368089b9b8c57d1bb85d6d52f2c772be67d49367"
+          }
+        },
+        {
           "client_id": "729894555819-tg42iiean55k86lccslp9nkp9ckensdf.apps.googleusercontent.com",
           "client_type": 3
         }
