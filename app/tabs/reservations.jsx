@@ -64,10 +64,8 @@ return (
             const locName = locations[item.location]?.name ?? item.location;
             const venueName = venues[item.venue]?.name ?? item.venue;
 
-            const path = item.status === 2 ? `/reservation/rate/${item.id}` : 
-                        item.status === 1 ? `/reservation/${item.id}` :
-                        null;
-            console.log("path:", path);
+            const path = item.status === 2 && !item.rating ? `/reservation/rate/${item.id}` :
+                         `/reservation/show/${item.id}`;
             return (
                 <RequestOverview
                 title={`${item.name}`}

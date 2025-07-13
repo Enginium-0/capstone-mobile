@@ -17,7 +17,7 @@ export function DateInput({ label = 'Date', value, onChange, minimum }) {
     }
   };
 
-  const formattedDate = value ? value.toLocaleDateString() : 'Select Date';
+  const formattedDate = value ? new Date(value).toLocaleDateString() : 'Select Date';
 
   return (
     <View style={FORMS.field}>

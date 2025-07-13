@@ -24,19 +24,20 @@ import { COLORS, FONT_SIZES, STYLES } from "@/lib/utils/enums";
 export default function LoginPage() {
     useEffect(() => {
         // Ideally move this to your app root
-        // GoogleSignin.configure();
+            GoogleSignin.configure({
+                webClientId: Constants.expoConfig.extra.GOOGLE_CLIENT_ID,// from Firebase → Web client ID
+                scopes: ['email', 'profile', 'openid'], // ✅ these are required
+                offlineAccess: true, // Optional, only if you need a refresh token
+            });
     }, []);
 
 
     const startSignInFlow = async () => {
         try {
-            GoogleSignin.configure({
-                webClientId: Constants.expoConfig.extra.GOOGLE_CLIENT_ID,
-                offlineAccess: true, // Optional, only if you need a refresh token
-            });
 
             await GoogleSignin.hasPlayServices();
             const signInResponse = await GoogleSignin.signIn();
+            console.log("Signed in:", userInfo);
             if (signInResponse.type === 'success') {
                 // use signInResponse.data
                 console.log("Google Sign-In Success", signInResponse.data);

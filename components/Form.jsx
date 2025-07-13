@@ -8,10 +8,25 @@ import { FontAwesome } from '@expo/vector-icons'
 import { TEXTS, FORMS, TAGS } from '../lib/utils/theme.js';
 import { COLORS, FONT_SIZES, STYLES } from '../lib/utils/enums.js';
 
-export function FileUpload({ label, file, onPick }) {
+// components/Form.jsx (inside same file)
+
+export function FileUpload({ label, file, onPick, type = "both" }) {
   const pickFile = useCallback(async () => {
     try {
-      const result = await DocumentPicker.getDocumentAsync({ type: ['application/pdf', 'image/*'] });
+      let allowedTypes;
+
+      switch (type) {
+        case "pdf":
+          allowedTypes = ['application/pdf'];
+          break;
+        case "image":
+          allowedTypes = ['image/*'];
+          break;
+        default:
+          allowedTypes = ['application/pdf', 'image/*'];
+      }
+
+      const result = await DocumentPicker.getDocumentAsync({ type: allowedTypes });
 
       if (result.canceled || !result.assets?.[0]) return;
 
@@ -19,7 +34,12 @@ export function FileUpload({ label, file, onPick }) {
       const isPdf = selectedFile.name.toLowerCase().endsWith('.pdf');
       const isImage = selectedFile.mimeType?.startsWith('image/');
 
-      if (!isPdf && !isImage) {
+      // Re-check to ensure valid format (in case of browser bugs)
+      if (
+        (type === 'pdf' && !isPdf) ||
+        (type === 'image' && !isImage) ||
+        (!isPdf && !isImage)
+      ) {
         Alert.alert('Invalid File', 'Only PDF or image files are allowed.');
         return;
       }
@@ -28,7 +48,7 @@ export function FileUpload({ label, file, onPick }) {
     } catch (e) {
       Alert.alert('File selection failed', e.message || 'Unknown error');
     }
-  }, [onPick]);
+  }, [onPick, type]);
 
   const clearFile = () => {
     onPick?.(null);
@@ -60,6 +80,7 @@ export function FileUpload({ label, file, onPick }) {
     </View>
   );
 }
+
 
 export function TextAreaField({ label, value, onChange, maxLength = 255, onValidate, placeholder = '' }) {
   const isValid = /^[a-zA-Z0-9 ]*$/.test(value);

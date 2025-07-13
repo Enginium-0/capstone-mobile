@@ -4,14 +4,14 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { useState, useEffect } from 'react';
 import { ScrollView, View, Text } from 'react-native';
 
-import { SelectField, TextAreaField, SubmitButton } from '../../components/Form.jsx';
-import { TAGS, TEXTS } from '../../lib/utils/theme.js';
-import { getUser } from '../../lib/controllers/UserController.js';
-import { getDepartment } from '../../lib/controllers/DepartmentController.js';
-import { ratePersonnel } from '../../lib/controllers/RatingController.js';
-import { COLORS } from '../../lib/utils/enums.js';
-import { getServiceRequest, updateJobOrder } from '../../lib/controllers/ServiceController.js';
-import { isSuccess } from '../../lib/utils/form.js';
+import { SelectField, TextAreaField, SubmitButton } from '@/components/Form.jsx';
+import { TAGS, TEXTS } from '@/lib/utils/theme.js';
+import { getUser } from '@/lib/controllers/UserController.js';
+import { getDepartment } from '@/lib/controllers/DepartmentController.js';
+import { ratePersonnel } from '@/lib/controllers/RatingController.js';
+import { COLORS } from '@/lib/utils/enums.js';
+import { getServiceRequest, updateJobOrder } from '@/lib/controllers/ServiceController.js';
+import { isSuccess } from '@/lib/utils/form.js';
 
 export default function ServiceRatingForm() {
   const { rateService } = useLocalSearchParams();

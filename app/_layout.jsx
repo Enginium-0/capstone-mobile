@@ -2,11 +2,11 @@
 
 // Imported React Native Libraries
 import { Stack } from 'expo-router';
-import Header from '../../components/Header';
-import NavigationBar from '../../components/NavigationBar';
+import Header from '../components/Header';
+import NavigationBar from '../components/NavigationBar';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { View, StyleSheet } from 'react-native';
-import { STYLES, COLORS } from '../../lib/utils/enums';
+import { STYLES, COLORS } from '../lib/utils/enums';
 
 export default function Layout() {
   return (

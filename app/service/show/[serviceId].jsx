@@ -1,4 +1,4 @@
-// app/reservation/[reservationId].jsx
+// app/reservation/[serviceId].jsx
 
 import { View, Text, ScrollView, Button, Linking } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';

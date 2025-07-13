@@ -66,9 +66,9 @@ export default function Services() {
           const locName = locations[item.location]?.name ?? item.location;
           const venueName = venues[item.venue]?.name ?? item.venue;
 
-          const path = item.status === 2 && item.dispatched // && !item.rating
-            ? `/service/${item.id}`
-            : null;
+          const path = item.status === 2 && !item.rating
+            ? `/service/rate/${item.id}`
+            : `/service/${item.id}`;
 
           return (
             <RequestOverview

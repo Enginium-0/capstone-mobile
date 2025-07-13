@@ -98,6 +98,7 @@ export default function ServiceForm() {
           label="Upload Related Image"
           file={imageFile}
           onPick={setImageFile}
+          type='image'
         />
 
         <SubmitButton enabled={submitEnabled} onPress={handleSubmit} />
