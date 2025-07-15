@@ -16,23 +16,28 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/emblem.png",
         "backgroundColor": "#ffffff"
       },
+      "googleServicesFile": "./google-services.json",
       "edgeToEdgeEnabled": true,
       "package": "com.enginium_0.capstonemobile"
     },
     "web": {
-      "favicon": "./assets/emblem.png"
+        "bundler": "metro",
+        "output": "server",
+        "favicon": "./assets/emblem.png"
     },
     "plugins": [
       "expo-router",
       "expo-web-browser",
-      "expo-secure-store"
+      "expo-secure-store",
+      "@react-native-google-signin/google-signin"
     ],
     "extra": {
       "originalFullName": "@enginium_0/facilitease-mobile"
